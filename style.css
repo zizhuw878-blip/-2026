@@ -3,3 +3,6 @@
 
 /* Multi-currency ledger */
 .currency-totals{display:flex;flex-wrap:wrap;gap:12px 24px;padding:20px 0;font-size:12px;color:var(--muted)}.currency-totals b{color:var(--ink);margin-left:8px}.rate-panel{border:1px solid var(--line);border-radius:5px;padding:16px;background:var(--white)}.rate-panel summary{cursor:pointer;min-height:32px}.rate-form{display:grid;grid-template-columns:repeat(3,1fr) auto;gap:12px;align-items:end}.total p{margin:10px 0 0;overflow-wrap:anywhere}.total strong{overflow-wrap:anywhere}[hidden]{display:none!important}.expense-row strong{overflow-wrap:anywhere;max-width:40%}@media(max-width:650px){.rate-form{grid-template-columns:1fr}.expense-row{gap:8px}.expense-row .text-button{min-width:32px}.expense-row .icon-button{width:32px}.currency-totals{gap:12px;display:grid;grid-template-columns:1fr 1fr}.currency-totals b{display:block;margin:0}.total strong{font-size:24px}}
+
+/* Trip name: wrap between destinations while keeping each flag with its country. */
+.trip-title{overflow-wrap:anywhere;letter-spacing:2px}.trip-title .title-year{display:block}.trip-title .title-country{display:inline-block;white-space:nowrap}@media(max-width:650px){.trip-title{font-size:clamp(30px,9vw,46px);line-height:1.5;letter-spacing:1px}}
