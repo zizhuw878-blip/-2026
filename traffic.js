@@ -15,7 +15,8 @@ const TransportClock=(()=>{
  ['flight-11',11,'飞机','Wizz Air W61385','华沙莫德林 WMI','巴塞尔 BSL','2026-12-31T14:05','2026-12-31T16:05','Europe/Warsaw','Europe/Paris'],
  ['fra-transfer',0,'机场换乘','','法兰克福市区','法兰克福机场','','','Europe/Berlin','Europe/Berlin'],
  ['milan-transfer',0,'机场换乘','','米兰利纳特机场','米兰马尔彭萨机场','','','Europe/Rome','Europe/Rome'],
- ['train-6',6,'火车 / 其他交通','','华沙','克拉科夫','','','Europe/Warsaw','Europe/Warsaw'],
+ ['museum-transfer',6,'交通待确认 · 需确保13:00前到达','','华沙莫德林机场 WMI','奥斯威辛纪念馆','','','Europe/Warsaw','Europe/Warsaw'],
+ ['train-6',6,'参观结束后 · 交通待确认','','奥斯威辛纪念馆','克拉科夫','','','Europe/Warsaw','Europe/Warsaw'],
  ['train-7',7,'火车 / 其他交通','','克拉科夫','弗罗茨瓦夫','','','Europe/Warsaw','Europe/Warsaw'],
  ['train-8',8,'火车 / 其他交通','','弗罗茨瓦夫','格但斯克','','','Europe/Warsaw','Europe/Warsaw'],
  ['train-10',10,'火车 / 其他交通','','格但斯克','华沙','','','Europe/Warsaw','Europe/Warsaw']

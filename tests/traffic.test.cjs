@@ -14,3 +14,13 @@ test('winter departures are absolute and independent of the host timezone',()=>{
 });
 test('exact departure and arrival boundaries use scheduled statuses',()=>{const t=clock.base[0],{departure,arrival}=clock.timing(t);assert.equal(clock.status(t,departure-1),'尚未出发');assert.equal(clock.status(t,departure),'行程进行中');assert.equal(clock.status(t,arrival-1),'行程进行中');assert.equal(clock.status(t,arrival),'已结束');assert.equal(clock.status(clock.base[5],Date.now()),'待确认')});
 test('invalid and reversed local dates are rejected; overnight works',()=>{assert.throws(()=>clock.timestamp('2026-02-30T10:00','Europe/Paris'));assert.throws(()=>clock.timestamp('2026-03-29T02:30','Europe/Paris'));assert.throws(()=>clock.timing({...clock.base[0],arrival:'2026-12-20T09:00'}));assert.equal(clock.timing({...clock.base[0],departure:'2026-12-20T23:30',arrival:'2026-12-21T01:00'}).arrival-clock.timing({...clock.base[0],departure:'2026-12-20T23:30',arrival:'2026-12-21T01:00'}).departure,5400000)});
+vm.runInContext(fs.readFileSync(require('node:path').join(__dirname,'../bookings.js'),'utf8')+';globalThis.bookings=SharedBookings;',context);
+test('booking deadlines use Iceland and Poland local time; no made-up ticket charge',()=>{
+ const {hotel,museum,expenses}=context.bookings;
+ assert.equal(clock.timestamp(hotel.checkin,hotel.zone),Date.parse('2026-12-21T15:00Z'));
+ assert.equal(clock.timestamp(hotel.checkout,hotel.zone),Date.parse('2026-12-25T11:00Z'));
+ assert.equal(clock.timestamp(museum.entry,museum.zone),Date.parse('2026-12-26T12:30Z'));
+ assert.equal(expenses[0].amount,460.64);assert.equal(expenses[0].currency,'EUR');
+ assert.equal(expenses[1].amount,0);assert.equal(expenses[1].currency,'PLN');
+ assert.equal(new Set(expenses.map(e=>e.id)).size,2);
+});
