@@ -24,3 +24,12 @@ test('booking deadlines use Iceland and Poland local time; no made-up ticket cha
  assert.equal(expenses[1].amount,0);assert.equal(expenses[1].currency,'PLN');
  assert.equal(new Set(expenses.map(e=>e.id)).size,2);
 });
+test('December 26 active route goes through Krakow without invented times',()=>{
+ const legs=clock.activeBase.filter(t=>t.day===6);
+ assert.equal(legs[0].id,'flight-6');
+ assert.equal(legs.find(t=>t.id==='wmi-krakow').to,'克拉科夫');
+ assert.equal(legs.find(t=>t.id==='krakow-museum').from,'克拉科夫');
+ for(const t of legs.filter(t=>t.id!=='flight-6')){assert.equal(t.departure,'');assert.equal(t.arrival,'');assert.equal(t.number,'')}
+ assert.ok(!legs.some(t=>['train-6','museum-transfer'].includes(t.id)));
+ assert.ok(clock.base.some(t=>t.id==='train-6')); // Retained for legacy saved overrides.
+});

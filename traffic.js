@@ -17,9 +17,11 @@ const TransportClock=(()=>{
  ['milan-transfer',0,'机场换乘','','米兰利纳特机场','米兰马尔彭萨机场','','','Europe/Rome','Europe/Rome'],
  ['museum-transfer',6,'交通待确认 · 需确保13:00前到达','','华沙莫德林机场 WMI','奥斯威辛纪念馆','','','Europe/Warsaw','Europe/Warsaw'],
  ['train-6',6,'参观结束后 · 交通待确认','','奥斯威辛纪念馆','克拉科夫','','','Europe/Warsaw','Europe/Warsaw'],
+ ['wmi-krakow',6,'前往克拉科夫 · 待确认','','华沙莫德林机场 WMI','克拉科夫','','','Europe/Warsaw','Europe/Warsaw'],
+ ['krakow-museum',6,'前往奥斯威辛 · 待确认','','克拉科夫','奥斯威辛纪念馆','','','Europe/Warsaw','Europe/Warsaw'],
  ['train-7',7,'火车 / 其他交通','','克拉科夫','弗罗茨瓦夫','','','Europe/Warsaw','Europe/Warsaw'],
  ['train-8',8,'火车 / 其他交通','','弗罗茨瓦夫','格但斯克','','','Europe/Warsaw','Europe/Warsaw'],
  ['train-10',10,'火车 / 其他交通','','格但斯克','华沙','','','Europe/Warsaw','Europe/Warsaw']
  ].map(([id,day,type,number,from,to,departure,arrival,departureZone,arrivalZone])=>({id,day,type,number,from,to,departure,arrival,departureZone,arrivalZone}));
- return {zones,timestamp,timing,status,remaining,base};
+ return {zones,timestamp,timing,status,remaining,base,activeBase:base.filter(t=>!['train-6','museum-transfer'].includes(t.id))};
 })();
