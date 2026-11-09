@@ -22,7 +22,7 @@ test('booking deadlines use Iceland and Poland local time; no made-up ticket cha
  assert.equal(clock.timestamp(museum.entry,museum.zone),Date.parse('2026-12-26T12:30Z'));
  assert.equal(expenses[0].amount,460.64);assert.equal(expenses[0].currency,'EUR');
  assert.equal(expenses[1].amount,0);assert.equal(expenses[1].currency,'PLN');
- assert.equal(new Set(expenses.map(e=>e.id)).size,4);
+ assert.equal(new Set(expenses.map(e=>e.id)).size,5);
 });
 test('December 26 active route goes through Krakow without invented times',()=>{
  const legs=clock.activeBase.filter(t=>t.day===6);
@@ -38,3 +38,5 @@ test('December 26 active route goes through Krakow without invented times',()=>{
 test('Gdansk apartment deadlines and expense exclude reference price and deposit',()=>{const {gdansk,expenses}=context.bookings;assert.equal(clock.timestamp(gdansk.checkin,gdansk.zone),Date.parse('2026-12-28T14:00Z'));assert.equal(clock.timestamp(gdansk.checkout,gdansk.zone),Date.parse('2026-12-30T10:00Z'));const entries=expenses.filter(e=>e.id==='booking-stay-motlawa-2026');assert.equal(entries.length,1);assert.equal(entries[0].amount,768);assert.equal(entries[0].currency,'PLN');assert.equal(entries[0].category,'住宿');assert.equal(entries[0].paymentStatus,'待确认');assert.equal(gdansk.deposit,300);});
 
 test('Warsaw stay uses local deadlines and one PLN expense, preserving flight',()=>{const {warsaw,expenses}=context.bookings;assert.equal(clock.timestamp(warsaw.checkin,warsaw.zone),Date.parse('2026-12-30T14:00Z'));assert.equal(clock.timestamp(warsaw.checkout,warsaw.zone),Date.parse('2026-12-31T10:00Z'));const e=expenses.filter(e=>e.id==='booking-stay-chmielna-2026');assert.equal(e.length,1);assert.equal(e[0].amount,279.45);assert.equal(e[0].category,'住宿');assert.equal(e[0].paymentStatus,'待确认');assert.equal(clock.base.find(t=>t.id==='flight-11').departure,'2026-12-31T14:05');});
+
+test('Krakow paid hotel keeps EUR and Polish local deadlines',()=>{const {krakow,expenses}=context.bookings;assert.equal(clock.timestamp(krakow.checkin,krakow.zone),Date.parse('2026-12-26T13:00Z'));assert.equal(clock.timestamp(krakow.checkout,krakow.zone),Date.parse('2026-12-27T10:00Z'));const e=expenses.filter(e=>e.id==='booking-stay-wyspianski-2026');assert.equal(e.length,1);assert.equal(e[0].amount,52.88);assert.equal(e[0].currency,'EUR');assert.equal(e[0].paymentStatus,'已付款');});
